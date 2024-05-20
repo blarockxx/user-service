@@ -1,9 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from config import Config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 语法优化---------
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.config.from_object(Config)
+# ----------------
 
 db = SQLAlchemy(app)
 # 确保在数据库初始化之前推送应用程序上下文
